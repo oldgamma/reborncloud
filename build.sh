@@ -22,4 +22,10 @@ VERSION="${@}" &&
     mock --copyin dancingleather.repo dancingleather.repo &&
     mkdir --parents build/shell/01 &&
     mock --shell "diff --brief --report-identical-files /etc/yum.repos.d/dancingleather.repo dancingleather.repo" --resultdir build/shell/01 &&
+    git clone -b issue-0002-ivoryomega git@github.com:rawflag/dancingleather.git build/repository &&
+    cp build/rebuild/01/ivoryomega-${VERSION}-${RELEASE}.x86_64.rpm build/repository &&
+    cd build/repository &&
+    git add ivoryomega-${VERSION}-${RELEASE}.x86_64.rpm &&
+    git commit -am "added ivoryomega-${VERSION}-${RELEASE}.x86_64.rpm" -S &&
+    git push origin issue-0002-ivoryomega &&
     true
